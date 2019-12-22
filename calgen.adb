@@ -28,9 +28,9 @@ pragma Wide_Character_Encoding (UTF8);
 
 with Ada.Calendar;
 with Ada.Calendar.Arithmetic;
+with Ada.Command_Line;
 with Ada.Wide_Wide_Text_IO;
 with Ada.Integer_Wide_Wide_Text_IO;
-with Ada.Command_Line;
 with Ada.Strings;
 with Ada.Strings.Wide_Wide_Fixed;
 with GNAT.Calendar;
@@ -39,12 +39,12 @@ procedure Calgen is
 
    use Ada.Calendar;
    use Ada.Calendar.Arithmetic;
-   use GNAT.Calendar;
+   use Ada.Command_Line;
    use Ada.Wide_Wide_Text_IO;
    use Ada.Integer_Wide_Wide_Text_IO;
-   use Ada.Command_Line;
    use Ada.Strings;
    use Ada.Strings.Wide_Wide_Fixed;
+   use GNAT.Calendar;
 
    procedure Print_Date_Item (Date : Time);
    --  Drukuje na stdout nagłówek dla dnia określonego w Date w
@@ -336,7 +336,7 @@ begin
       Print_Help;
       return;
    end if;
-   
+
    --  Obsługa argumentów programów
 
    case Argument_Count is

@@ -1,4 +1,5 @@
-# calgen
+calgen
+======
 
 Drukuje kalendarz na dany rok.
 
