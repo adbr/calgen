@@ -14,15 +14,13 @@
 --
 --      * 2019
 --      ** 2019-01 Styczeń
---      *** 2019-01-01 Wto [w01]
---      *** 2019-01-02 Śro [w01]
---      *** 2019-01-03 Czw [w01]
---      *** 2019-01-04 Pią [w01]
---      *** 2019-01-05 Sob [w01]
---      *** 2019-01-06 Nie [w01]
---      *** 2019-01-07 Pon [w02] *
---
---  Gwiazdką (*) jest oznaczony początek nowego tygodnia.
+--      *** 2019-01-01 Wto
+--      *** 2019-01-02 Śro
+--      *** 2019-01-03 Czw
+--      *** 2019-01-04 Pią
+--      *** 2019-01-05 Sob
+--      *** 2019-01-06 Nie
+--      *** 2019-01-07 Pon [w02]
 
 pragma Wide_Character_Encoding (UTF8);
 
@@ -48,14 +46,21 @@ procedure Calgen is
 
    procedure Print_Date_Item (Date : Time);
    --  Drukuje na stdout nagłówek dla dnia określonego w Date w
-   --  postać: "*** 2019-12-21 Sob [w51]". Na początku roku drukuje
+   --  postać: "*** 2019-12-21 Sob". Na początku roku drukuje
    --  dodatkowo nagłówek roku w postaci: "* 2019", a na początku
-   --  miesiąca nagłówek miesiąca w postaci: "** 2019-01". Początek
-   --  tygodnia jest zaznaczony gwiazdką "*" na końcu wiersza.
-   --  Czyli dla pierwszego styczna wydrukuje:
-   --  * 2019
-   --  ** 2019-01 Styczeń
-   --  *** 2019-01-01 Wto [w01]
+   --  miesiąca nagłówek miesiąca w postaci: "** 2019-01
+   --  Styczeń". Początek tygodnia jest zaznaczony numerem tygodnia na
+   --  końcu wiersza dla dnia będącego poniedziałkiem.
+   --  Przykładowy fragment:
+   --      * 2019
+   --      ** 2019-01 Styczeń
+   --      *** 2019-01-01 Wto
+   --      *** 2019-01-02 Śro
+   --      *** 2019-01-03 Czw
+   --      *** 2019-01-04 Pią
+   --      *** 2019-01-05 Sob
+   --      *** 2019-01-06 Nie
+   --      *** 2019-01-07 Pon [w02]
 
    function Current_Year return Year_Number;
    --  Zwraca numer aktualnego roku.
@@ -95,7 +100,7 @@ procedure Calgen is
          Day_Of_Week : Day_Name;
          Week        : Week_In_Year_Number);
       --  Drukuje na stdout nagłówek dnia w postaci:
-      --  "*** 2019-01-01 Wto [w01]".
+      --  "*** 2019-01-01 Wto".
 
       -------------------------
       -- Print_Year_Headline --
@@ -226,19 +231,15 @@ procedure Calgen is
          Put (" ");
          Put (Day_Of_Week_String (Day_Of_Week));
 
-         --  Numer tygodnia
-
-         Put (" [w");
-         if Week < 10 then
-            Put ("0");
-         end if;
-         Put (Week, 0);
-         Put ("]");
-
-         --  Zaznaczenie nowego tygodnia
+         --  Numer tygodnia - tylko dla poniedziałku
 
          if Day_Of_Week = Monday then
-            Put (" *");
+            Put (" [w");
+            if Week < 10 then
+               Put ("0");
+            end if;
+            Put (Week, 0);
+            Put ("]");
          end if;
 
          New_Line;
@@ -306,17 +307,16 @@ procedure Calgen is
       P ("");
       P ("Kalendarz ma postać:");
       P ("");
-      P ("    * 2019");
-      P ("    ** 2019-01 Styczeń");
-      P ("    *** 2019-01-01 Wto [w01]");
-      P ("    *** 2019-01-02 Śro [w01]");
-      P ("    *** 2019-01-03 Czw [w01]");
-      P ("    *** 2019-01-04 Pią [w01]");
-      P ("    *** 2019-01-05 Sob [w01]");
-      P ("    *** 2019-01-06 Nie [w01]");
-      P ("    *** 2019-01-07 Pon [w02] *");
+      P ("* 2019");
+      P ("** 2019-01 Styczeń");
+      P ("*** 2019-01-01 Wto");
+      P ("*** 2019-01-02 Śro");
+      P ("*** 2019-01-03 Czw");
+      P ("*** 2019-01-04 Pią");
+      P ("*** 2019-01-05 Sob");
+      P ("*** 2019-01-06 Nie");
+      P ("*** 2019-01-07 Pon [w02]");
       P ("");
-      P ("Gwiazdką (*) jest oznaczony początek nowego tygodnia.");
    end Print_Help;
 
    --  Local variables
